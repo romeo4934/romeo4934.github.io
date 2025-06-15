@@ -5,100 +5,213 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TrustRamp - On-Ramp & Off-Ramp in Europe</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+        }
+        .glassmorphism {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        .nav-transparent {
+            background: rgba(16, 185, 129, 0.1);
+            backdrop-filter: blur(8px);
+        }
+        .nav-solid {
+            background: #047857;
+        }
+        .fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeIn 0.8s ease-out forwards;
+        }
+        @keyframes fadeIn {
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+        .gradient-text {
+            background: linear-gradient(to right, #10b981, #06b6d4);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        .mobile-menu {
+            transform: translateX(100%);
+            transition: transform 0.3s ease-in-out;
+        }
+        .mobile-menu.open {
+            transform: translateX(0);
+        }
+        [data-scroll] { transition: all 0.5s ease; }
+        [data-scroll="in"] { opacity: 1; transform: translateY(0); }
+        [data-scroll="out"] { opacity: 0; transform: translateY(20px); }
+    </style>
 </head>
-<body class="bg-gray-100 font-sans">
+<body class="bg-slate-50 text-slate-900">
     <!-- Navigation -->
-    <nav class="bg-green-600 text-white p-4">
-        <div class="container mx-auto flex justify-between items-center">
-            <h1 class="text-2xl font-bold">TrustRamp</h1>
-            <div class="space-x-4">
-                <a href="#home" class="hover:underline">Home</a>
-                <a href="#services" class="hover:underline">Services</a>
-                <a href="#about" class="hover:underline">About</a>
-                <a href="#contact" class="hover:underline">Contact</a>
+    <nav id="navbar" class="nav-transparent text-white py-4 fixed top-0 w-full z-50 transition-all duration-300">
+        <div class="container mx-auto max-w-screen-xl flex justify-between items-center px-6">
+            <h1 class="text-2xl font-bold gradient-text">TrustRamp</h1>
+            <div class="hidden md:flex space-x-8">
+                <a href="#home" class="text-sm font-medium hover:text-cyan-400 transition duration-300">Home</a>
+                <a href="#services" class="text-sm font-medium hover:text-cyan-400 transition duration-300">Services</a>
+                <a href="#about" class="text-sm font-medium hover:text-cyan-400 transition duration-300">About</a>
+                <a href="#contact" class="text-sm font-medium hover:text-cyan-400 transition duration-300">Contact</a>
+            </div>
+            <button id="menu-toggle" class="md:hidden text-white focus:outline-none">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+            </button>
+        </div>
+        <div id="mobile-menu" class="mobile-menu md:hidden bg-emerald-700 text-white fixed top-0 right-0 h-full w-3/4 p-6">
+            <button id="menu-close" class="absolute top-4 right-4 text-white">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+            </button>
+            <div class="flex flex-col space-y-6 mt-12">
+                <a href="#home" class="text-lg font-medium hover:text-cyan-400">Home</a>
+                <a href="#services" class="text-lg font-medium hover:text-cyan-400">Services</a>
+                <a href="#about" class="text-lg font-medium hover:text-cyan-400">About</a>
+                <a href="#contact" class="text-lg font-medium hover:text-cyan-400">Contact</a>
             </div>
         </div>
     </nav>
 
     <!-- Hero Section -->
-    <section id="home" class="bg-green-50 py-20">
-        <div class="container mx-auto text-center">
-            <h2 class="text-4xl font-bold mb-4">Welcome to TrustRamp</h2>
-            <p class="text-lg mb-4">Your trusted solution for seamless on-ramp and off-ramp services in Europe. Convert between fiat and crypto with ease and security.</p>
-            <p class="text-xl font-semibold text-green-600 mb-6">Launching Soon!</p>
-            <a href="#contact" class="bg-green-600 text-white px-6 py-3 rounded-lg hover:bg-green-700">Join the Waitlist</a>
+    <section id="home" class="bg-gradient-to-br from-emerald-600 to-cyan-500 py-32 relative overflow-hidden">
+        <div class="container mx-auto max-w-screen-xl text-center px-6">
+            <h2 class="text-4xl md:text-6xl font-bold text-white mb-6 fade-in text-shadow-lg gradient-text" style="animation-delay: 0.2s;">Welcome to TrustRamp</h2>
+            <p class="text-lg md:text-2xl text-white/80 mb-8 max-w-2xl mx-auto fade-in" style="animation-delay: 0.4s;">Your trusted solution for seamless on-ramp and off-ramp services in Europe. Convert between fiat and crypto with ease and security.</p>
+            <p class="text-xl font-semibold text-cyan-400 mb-10 fade-in" style="animation-delay: 0.6s;">Launching Soon!</p>
+            <a href="#contact" class="inline-block bg-cyan-400 text-white px-10 py-4 rounded-full text-lg font-semibold hover:bg-cyan-500 pulse transition duration-300 shadow-xl fade-in" style="animation-delay: 0.8s;">Join the Waitlist</a>
         </div>
+        <svg class="absolute bottom-0 left-0 w-full h-24 text-slate-50" viewBox="0 0 1440 100" preserveAspectRatio="none"><path fill="currentColor" d="M0,0 C480,100 960,100 1440,0 L1440,100 L0,100 Z"></path></svg>
     </section>
 
     <!-- Services Section -->
-    <section id="services" class="py-20">
-        <div class="container mx-auto text-center">
-            <h2 class="text-3xl font-bold mb-8">Our Services</h2>
+    <section id="services" class="py-32 bg-slate-50">
+        <div class="container mx-auto max-w-screen-xl text-center px-6">
+            <h2 class="text-3xl md:text-5xl font-bold text-slate-900 mb-16 fade-in" data-scroll>Our Services</h2>
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <div class="bg-white p-6 rounded-lg shadow-md">
-                    <h3 class="text-xl font-semibold mb-4">On-Ramp</h3>
-                    <p>Effortlessly convert your euros to cryptocurrencies with our trusted European banking partners.</p>
+                <div class="glassmorphism p-8 rounded-2xl hover:scale-105 transition duration-300 fade-in" data-scroll style="animation-delay: 0.2s;">
+                    <svg class="w-12 h-12 text-cyan-400 mx-auto mb-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 1.343-3 3v2h6v-2c0-1.657-1.343-3-3-3zm0-4a7 7 0 00-7 7v2h14v-2a7 7 0 00-7-7z"></path></svg>
+                    <h3 class="text-xl font-semibold text-slate-900 mb-4">On-Ramp</h3>
+                    <p class="text-slate-600">Effortlessly convert your euros to cryptocurrencies with our trusted European banking partners.</p>
                 </div>
-                <div class="bg-white p-6 rounded-lg shadow-md">
-                    <h3 class="text-xl font-semibold mb-4">Off-Ramp</h3>
-                    <p>Convert your cryptocurrencies to euros and receive funds directly to your European bank account.</p>
+                <div class="glassmorphism p-8 rounded-2xl hover:scale-105 transition duration-300 fade-in" data-scroll style="animation-delay: 0.4s;">
+                    <svg class="w-12 h-12 text-cyan-400 mx-auto mb-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                    <h3 class="text-xl font-semibold text-slate-900 mb-4">Off-Ramp</h3>
+                    <p class="text-slate-600">Convert your cryptocurrencies to euros and receive funds directly to your European bank account.</p>
                 </div>
-                <div class="bg-white p-6 rounded-lg shadow-md">
-                    <h3 class="text-xl font-semibold mb-4">Security & Compliance</h3>
-                    <p>Operations compliant with European regulations, backed by state-of-the-art security protocols to protect your assets.</p>
+                <div class="glassmorphism p-8 rounded-2xl hover:scale-105 transition duration-300 fade-in" data-scroll style="animation-delay: 0.6s;">
+                    <svg class="w-12 h-12 text-cyan-400 mx-auto mb-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                    <h3 class="text-xl font-semibold text-slate-900 mb-4">Security & Compliance</h3>
+                    <p class="text-slate-600">Operations compliant with European regulations, backed by state-of-the-art security protocols.</p>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- About Section -->
-    <section id="about" class="bg-white py-20">
-        <div class="container mx-auto text-center">
-            <h2 class="text-3xl font-bold mb-8">About TrustRamp</h2>
-            <p class="text-lg mb-6">TrustRamp is a Virtual Asset Service Provider (VASP) registered in Poland, dedicated to providing secure and compliant fiat-to-crypto and crypto-to-fiat conversion services across Europe.</p>
-            <div class="text-left max-w-3xl mx-auto">
-                <h3 class="text-xl font-semibold mb-4">Company Information</h3>
-                <ul class="list-disc pl-6 mb-6">
-                    <li><strong>Name:</strong> TrustRamp</li>
-                    <li><strong>Registration Number:</strong> 0001119540</li>
-                    <li><strong>License Type:</strong> Crypto Certificate (Active)</li>
-                    <li><strong>License Obtained:</strong> 28.05.2025</li>
-                    <li><strong>Operational Since:</strong> 02.08.2024</li>
-                    <li><strong>Physical & Postal Address:</strong> ul. Bartycka 22B, lok. 21A, Warszawa, 00-716, Poland</li>
-                    <li><strong>Headquarters:</strong> Poland</li>
-                </ul>
+    <section id="about" class="bg-gradient-to-b from-slate-50 to-emerald-50 py-32">
+        <div class="container mx-auto max-w-screen-xl text-center px-6">
+            <h2 class="text-3xl md:text-5xl font-bold text-slate-900 mb-16 fade-in" data-scroll>About TrustRamp</h2>
+            <p class="text-lg md:text-2xl text-slate-600 mb-12 max-w-3xl mx-auto fade-in" data-scroll style="animation-delay: 0.2s;">TrustRamp is a Virtual Asset Service Provider (VASP) registered in Poland, dedicated to providing secure and compliant fiat-to-crypto and crypto-to-fiat conversion services across Europe.</p>
+            <div class="max-w-3xl mx-auto glassmorphism p-10 rounded-2xl fade-in" data-scroll style="animation-delay: 0.4s;">
+                <h3 class="text-xl font-semibold text-slate-900 mb-8">Company Information</h3>
+                <div class="grid grid-cols-1 gap-6">
+                    <div class="flex items-center">
+                        <span class="w-1/3 font-medium text-slate-800 relative after:absolute after:bottom-0 after:left-0 after:w-12 after:h-1 after:bg-gradient-to-r after:from-cyan-400 after:to-emerald-600">Name</span>
+                        <span class="text-slate-600">TrustRamp</span>
+                    </div>
+                    <div class="flex items-center">
+                        <span class="w-1/3 font-medium text-slate-800 relative after:absolute after:bottom-0 after:left-0 after:w-12 after:h-1 after:bg-gradient-to-r after:from-cyan-400 after:to-emerald-600">Registration Number</span>
+                        <span class="text-slate-600">0001119540</span>
+                    </div>
+                    <div class="flex items-center">
+                        <span class="w-1/3 font-medium text-slate-800 relative after:absolute after:bottom-0 after:left-0 after:w-12 after:h-1 after:bg-gradient-to-r after:from-cyan-400 after:to-emerald-600">License Type</span>
+                        <span class="text-slate-600">Crypto Certificate (Active)</span>
+                    </div>
+                    <div class="flex items-center">
+                        <span class="w-1/3 font-medium text-slate-800 relative after:absolute after:bottom-0 after:left-0 after:w-12 after:h-1 after:bg-gradient-to-r after:from-cyan-400 after:to-emerald-600">License Obtained</span>
+                        <span class="text-slate-600">28.05.2025</span>
+                    </div>
+                    <div class="flex items-center">
+                        <span class="w-1/3 font-medium text-slate-800 relative after:absolute after:bottom-0 after:left-0 after:w-12 after:h-1 after:bg-gradient-to-r after:from-cyan-400 after:to-emerald-600">Operational Since</span>
+                        <span class="text-slate-600">02.08.2024</span>
+                    </div>
+                    <div class="flex items-center">
+                        <span class="w-1/3 font-medium text-slate-800 relative after:absolute after:bottom-0 after:left-0 after:w-12 after:h-1 after:bg-gradient-to-r after:from-cyan-400 after:to-emerald-600">Address</span>
+                        <span class="text-slate-600">ul. Bartycka 22B, lok. 21A, Warszawa, 00-716, Poland</span>
+                    </div>
+                    <div class="flex items-center">
+                        <span class="w-1/3 font-medium text-slate-800 relative after:absolute after:bottom-0 after:left-0 after:w-12 after:h-1 after:bg-gradient-to-r after:from-cyan-400 after:to-emerald-600">Headquarters</span>
+                        <span class="text-slate-600">Poland</span>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
 
     <!-- Contact Section -->
-    <section id="contact" class="bg-gray-200 py-20">
-        <div class="container mx-auto text-center">
-            <h2 class="text-3xl font-bold mb-8">Contact Us</h2>
-            <div class="max-w-lg mx-auto bg-white p-8 rounded-lg shadow-md">
+    <section id="contact" class="py-32 bg-slate-50">
+        <div class="container mx-auto max-w-screen-xl text-center px-6">
+            <h2 class="text-3xl md:text-5xl font-bold text-slate-900 mb-16 fade-in" data-scroll>Contact Us</h2>
+            <div class="max-w-lg mx-auto glassmorphism p-10 rounded-2xl fade-in" data-scroll style="animation-delay: 0.2s;">
                 <form id="contact-form" action="https://formspree.io/f/xdkzgron" method="POST">
-                    <div class="mb-4">
-                        <label for="name" class="block text-left text-sm font-medium text-gray-700">Name</label>
-                        <input type="text" id="name" name="name" class="w-full p-2 border rounded-lg" placeholder="Your name" required>
+                    <div class="mb-6 relative">
+                        <input type="text" id="name" name="name" class="w-full p-4 bg-transparent border border-slate-300 rounded-lg focus:ring-2 focus:ring-cyan-400 focus:border-transparent transition peer" placeholder=" " required>
+                        <label for="name" class="absolute left-4 top-4 text-slate-600 transition-all duration-300 peer-focus:-top-3 peer-focus:text-xs peer-focus:text-cyan-400 peer-placeholder-shown:top-4 peer-placeholder-shown:text-base">Name</label>
                     </div>
-                    <div class="mb-4">
-                        <label for="email" class="block text-left text-sm font-medium text-gray-700">Email</label>
-                        <input type="email" id="email" name="email" class="w-full p-2 border rounded-lg" placeholder="Your email" required>
+                    <div class="mb-6 relative">
+                        <input type="email" id="email" name="email" class="w-full p-4 bg-transparent border border-slate-300 rounded-lg focus:ring-2 focus:ring-cyan-400 focus:border-transparent transition peer" placeholder=" " required>
+                        <label for="email" class="absolute left-4 top-4 text-slate-600 transition-all duration-300 peer-focus:-top-3 peer-focus:text-xs peer-focus:text-cyan-400 peer-placeholder-shown:top-4 peer-placeholder-shown:text-base">Email</label>
                     </div>
-                    <div class="mb-4">
-                        <label for="message" class="block text-left text-sm font-medium text-gray-700">Message</label>
-                        <textarea id="message" name="message" class="w-full p-2 border rounded-lg" rows="4" placeholder="Your message" required></textarea>
+                    <div class="mb-6 relative">
+                        <textarea id="message" name="message" class="w-full p-4 bg-transparent border border-slate-300 rounded-lg focus:ring-2 focus:ring-cyan-400 focus:border-transparent transition peer" rows="5" placeholder=" " required></textarea>
+                        <label for="message" class="absolute left-4 top-4 text-slate-600 transition-all duration-300 peer-focus:-top-3 peer-focus:text-xs peer-focus:text-cyan-400 peer-placeholder-shown:top-4 peer-placeholder-shown:text-base">Message</label>
                     </div>
                     <input type="text" name="_gotcha" style="display:none">
-                    <button type="submit" class="bg-green-600 text-white px-6 py-3 rounded-lg hover:bg-green-700">Send</button>
+                    <button id="submit-btn" type="submit" class="w-full bg-gradient-to-r from-cyan-400 to-emerald-600 text-white px-8 py-4 rounded-full font-semibold hover:from-cyan-500 hover:to-emerald-700 transition duration-300 shadow-lg disabled:opacity-50 disabled:cursor-not-allowed">Send</button>
                 </form>
-                <div id="form-message" class="mt-4 text-green-600 hidden">Thank you for your message! Redirecting to the thank-you page...</div>
+                <div id="form-message" class="mt-6 p-4 rounded-lg hidden transform transition-all duration-300"></div>
                 <script>
+                    // Navbar scroll effect
+                    window.addEventListener('scroll', () => {
+                        const navbar = document.getElementById('navbar');
+                        navbar.classList.toggle('nav-transparent', window.scrollY < 50);
+                        navbar.classList.toggle('nav-solid', window.scrollY >= 50);
+                    });
+                    // Mobile menu toggle
+                    const menuToggle = document.getElementById('menu-toggle');
+                    const menuClose = document.getElementById('menu-close');
+                    const mobileMenu = document.getElementById('mobile-menu');
+                    menuToggle.addEventListener('click', () => mobileMenu.classList.toggle('open'));
+                    menuClose.addEventListener('click', () => mobileMenu.classList.remove('open'));
+                    // Scroll animations
+                    const scrollElements = document.querySelectorAll('[data-scroll]');
+                    const observer = new IntersectionObserver((entries) => {
+                        entries.forEach(entry => {
+                            entry.target.setAttribute('data-scroll', entry.isIntersecting ? 'in' : 'out');
+                        });
+                    }, { threshold: 0.1 });
+                    scrollElements.forEach(el => observer.observe(el));
+                    // Form submission
                     document.getElementById('contact-form').addEventListener('submit', async (e) => {
                         e.preventDefault();
                         const form = e.target;
                         const formData = new FormData(form);
                         const messageDiv = document.getElementById('form-message');
+                        const submitBtn = document.getElementById('submit-btn');
+                        submitBtn.disabled = true;
+                        submitBtn.textContent = 'Sending...';
+                        messageDiv.classList.add('hidden');
                         try {
                             const response = await fetch(form.action, {
                                 method: 'POST',
@@ -108,17 +221,23 @@
                             if (response.ok) {
                                 form.reset();
                                 messageDiv.classList.remove('hidden');
+                                messageDiv.classList.add('bg-green-100', 'text-green-800', 'translate-y-0');
                                 messageDiv.textContent = 'Thank you for your message! Redirecting to the thank-you page...';
                                 setTimeout(() => {
                                     window.location.href = '/thanks.html';
                                 }, 2000);
                             } else {
                                 messageDiv.classList.remove('hidden');
+                                messageDiv.classList.add('bg-red-100', 'text-red-800', 'translate-y-0');
                                 messageDiv.textContent = 'Sorry, there was an error submitting your form. Please try again.';
                             }
                         } catch (error) {
                             messageDiv.classList.remove('hidden');
+                            messageDiv.classList.add('bg-red-100', 'text-red-800', 'translate-y-0');
                             messageDiv.textContent = 'Network error. Please check your connection and try again.';
+                        } finally {
+                            submitBtn.disabled = false;
+                            submitBtn.textContent = 'Send';
                         }
                     });
                 </script>
@@ -127,10 +246,28 @@
     </section>
 
     <!-- Footer -->
-    <footer class="bg-green-600 text-white p-4">
-        <div class="container mx-auto text-center">
-            <p>© 2025 TrustRamp. All rights reserved.</p>
-            <p class="mt-2">Compliant with European regulations. <a href="#" class="underline">Privacy Policy</a> | <a href="#" class="underline">Terms of Use</a></p>
+    <footer class="bg-slate-900 text-white py-12">
+        <div class="container mx-auto max-w-screen-xl px-6">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div>
+                    <h3 class="text-lg font-semibold mb-4 gradient-text">TrustRamp</h3>
+                    <p class="text-sm text-slate-400">© 2025 TrustRamp. All rights reserved.</p>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold mb-4 gradient-text">Links</h3>
+                    <div class="flex flex-col space-y-2">
+                        <a href="#" class="text-sm text-slate-400 hover:text-cyan-400 transition">Privacy Policy</a>
+                        <a href="#" class="text-sm text-slate-400 hover:text-cyan-400 transition">Terms of Use</a>
+                    </div>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold mb-4 gradient-text">Connect</h3>
+                    <div class="space-x-4">
+                        <a href="#" class="text-slate-400 hover:text-cyan-400 transition transform hover:scale-110"><span class="sr-only">Twitter</span><svg class="w-6 h-6 inline" fill="currentColor" viewBox="0 0 24 24"><path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 001.531 6.573 4.903 4.903 0 01-2.229-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z"></path></svg></a>
+                        <a href="#" class="text-slate-400 hover:text-cyan-400 transition transform hover:scale-110"><span class="sr-only">LinkedIn</span><svg class="w-6 h-6 inline" fill="currentColor" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-1.337-.027-3.063-1.867-3.063-1.867 0-2.153 1.459-2.153 2.968v5.699h-3v-11h2.879v1.508h.04c.401-.759 1.378-1.557 2.833-1.557 3.028 0 3.583 1.993 3.583 4.583v6.466z"></path></svg></a>
+                    </div>
+                </div>
+            </div>
         </div>
     </footer>
 </body>
